@@ -46,7 +46,47 @@ function get_film_by_id($id) {
 }
 
 function update_film($film) {
-	// TODO: Update film in the database
+	$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+	if (mysqli_connect_errno()) 
+	{
+		echo "Error connecting to database: " . mysqli_connect_error();
+		exit();
+	}
+
+	$sql = "UPDATE films SET name='$film[name]', description='$film[description]', rating=$film[rating],year=$film[year] WHERE id=$film[id]";
+
+	$ok = false;
+	if ($con->query($sql) === TRUE) {
+	    $ok = true;
+	} else {
+		printf("Could not execute query!");
+		die();
+	    $ok = false;
+	}
+	mysqli_close($con);
+	return $ok;
+}
+
+function insert_film($film) {
+	$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+	if (mysqli_connect_errno()) 
+	{
+		printf("Connection failed: %s\n", mysqli_connect_error());
+		exit();
+	}
+
+	$sql = "INSERT INTO films (name, description, rating, year) VALUES ('$film[name]', '$film[description]', $film[rating],$film[year])";
+
+	$ok = false;
+	if ($con->query($sql) === TRUE) {
+	    $ok = true;
+	} else {
+		printf("Could not execute query!");
+		die();
+	    $ok = false;
+	}
+	mysqli_close($con);
+	return $ok;
 }
 
 ?>

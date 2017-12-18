@@ -26,7 +26,7 @@
 
               <tbody>
 			  
-				<?php
+				        <?php
                   foreach ($films as $film) {
                     // start iteration
                 ?>
@@ -43,6 +43,8 @@
 
               </tbody>
           </table>
+
+          <a href="film_edit.php">Add new</a>
         </div>
       </div>
     </div>
