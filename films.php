@@ -28,16 +28,8 @@
 			  
 				        <?php
                   foreach ($films as $film) {
-                    // start iteration
-                ?>
-                <tr>
-                  <td><a href='film_details.php?id=<?php echo $film["id"]?>'><?php echo $film["name"]?></a></td>
-                  <td><?php echo $film["description"]?></td>
-                  <td><?php echo $film["rating"]?></td>
-                  <td><?php echo $film["year"]?></td>
-                </tr>
-                <?php
-                    // end iteration
+
+                    echo $film->generateTableRow();
                   }
                 ?>
 

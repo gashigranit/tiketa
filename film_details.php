@@ -20,26 +20,12 @@
       <div class="row">
         <div class="col-lg-12">
           <br/>
-          <h2><?php echo $selected_film["name"]; ?></h2>
-          <table class="table">
-              <tbody>
-                <tr>
-                  <td>Pershkrimi</td>
-                  <td><?php echo $selected_film["description"]; ?></td>
-                </tr>
-                <tr>
-                  <td>Vleresimi</td>
-                  <td><?php echo $selected_film["rating"]; ?></td>
-                </tr>
-                <tr>
-                  <td>Viti</td>
-                  <td><?php echo $selected_film["year"]; ?></td>
-                </tr>
-				<tr>
-					<td><a href='film_edit.php?id=<?php echo $selected_film["id"]; ?>'>Edit</a></td>
-				</tr>
-              </tbody>
-          </table>
+          <h2><?php echo $selected_film->getName(); ?></h2>
+          
+          <?php echo $selected_film->generateSingleView(); ?>
+
+          <a href='film_edit.php?id=<?php echo $selected_film->getId(); ?>'>Edit</a>
+
         </div>
       </div>
     </div>

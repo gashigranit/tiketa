@@ -1,5 +1,6 @@
 <?php
 include "protected/config.php";
+include "model/film.class.php";
 function get_all_films() {	
 
 	$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -13,22 +14,9 @@ function get_all_films() {
 	$result = mysqli_query($con, $sql);
 	
 	while($row = $result->fetch_assoc()) {
-		$films[] = array("id" => $row["id"], "name" => $row["name"], "description" => $row["description"], "rating" => $row["rating"], "year" => $row["year"]);
+		$films[] = new Film($row);
 	}
 	return $films;
-}
-
-function get_film_by_name($name) {
-	
-	// TODO: Get film from database
-	global $films;	
-	$found_film = [];
-	foreach($films as $film) {
-		if($film["name"] == $name) {
-			$found_film = $film;
-		}
-	}
-	return $found_film;	
 }
 
 function get_film_by_id($id) {
@@ -41,7 +29,7 @@ function get_film_by_id($id) {
 	$sql = "SELECT * FROM films WHERE id = $id";
 	$result = mysqli_query($con, $sql);	
 	$row = $result->fetch_assoc();
-	$film = array("id" => $row["id"], "name" => $row["name"], "description" => $row["description"], "rating" => $row["rating"], "year" => $row["year"]);
+	$film = new Film($row);
 	return $film;	
 }
 
@@ -53,7 +41,12 @@ function update_film($film) {
 		exit();
 	}
 
-	$sql = "UPDATE films SET name='$film[name]', description='$film[description]', rating=$film[rating],year=$film[year] WHERE id=$film[id]";
+	$id = $film->getId();
+	$name = $film->getName();
+	$description = $film->getDescription();
+	$rating = $film->getRating();
+	$year = $film->getYear();
+	$sql = "UPDATE films SET name='$name', description='$description', rating=$rating,year=$year WHERE id=$id";
 
 	$ok = false;
 	if ($con->query($sql) === TRUE) {
@@ -75,7 +68,12 @@ function insert_film($film) {
 		exit();
 	}
 
-	$sql = "INSERT INTO films (name, description, rating, year) VALUES ('$film[name]', '$film[description]', $film[rating],$film[year])";
+	$id = $film->getId();
+	$name = $film->getName();
+	$description = $film->getDescription();
+	$rating = $film->getRating();
+	$year = $film->getYear();
+	$sql = "INSERT INTO films (name, description, rating, year) VALUES ('$name', '$description', $rating,$year)";
 
 	$ok = false;
 	if ($con->query($sql) === TRUE) {

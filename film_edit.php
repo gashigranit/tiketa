@@ -1,6 +1,6 @@
 <?php include "core/functions.php"; ?>
 <?php
-  $selected_film = [];
+  $selected_film = new Film();
   if(isset($_GET["id"])) {
     $id = $_GET["id"];
     $selected_film = get_film_by_id($id);
@@ -33,9 +33,9 @@
     }
     
     if(empty($film["id"])) {
-      $success = insert_film($film);
+      $success = insert_film(new Film($film));
     } else {
-      $success = update_film($film);
+      $success = update_film(new Film($film));
     }
 
     
@@ -59,21 +59,21 @@
           
       <form method="POST">
             <div class="form-group">
-              <input type="hidden" class="form-control" name="input_id" id="id" value='<?php echo $selected_film["id"]; ?>'>
+              <input type="hidden" class="form-control" name="input_id" id="id" value='<?php echo $selected_film->getId(); ?>'>
               <label for="name">Emri:</label>
-              <input type="text" class="form-control" name="input_name" id="name" value='<?php echo $selected_film["name"]; ?>'>
+              <input type="text" class="form-control" name="input_name" id="name" value='<?php echo $selected_film->getName(); ?>'>
             </div>
             <div class="form-group">
               <label for="description">Pershkrimi:</label>
-              <textarea type="text" class="form-control" name="input_description" id="description"><?php echo $selected_film["description"]; ?></textarea> 
+              <textarea type="text" class="form-control" name="input_description" id="description"><?php echo $selected_film->getDescription(); ?></textarea> 
             </div>
             <div class="form-group">
               <label for="rating">Vleresimi:</label>
-              <input type="number" class="form-control" name="input_rating" id="rating" value='<?php echo $selected_film["rating"]; ?>'>
+              <input type="number" class="form-control" name="input_rating" id="rating" value='<?php echo $selected_film->getRating(); ?>'>
             </div>
             <div class="form-group">
               <label for="year">Viti:</label>
-              <input type="number" class="form-control" name="input_year" id="year" value='<?php echo $selected_film["year"]; ?>'>
+              <input type="number" class="form-control" name="input_year" id="year" value='<?php echo $selected_film->getYear(); ?>'>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
