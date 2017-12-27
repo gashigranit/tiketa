@@ -1,8 +1,9 @@
 <?php
+include_once "model/model.class.php";
+include_once "model/view.interface.php";
 
-class Film {
+class Film extends Model implements View {
 	
-	private $id;
 	private $name;
 	private $description;
 	private $rating;
@@ -14,11 +15,16 @@ class Film {
                 <th>Pershkrimi</th>
                 <th>Vleresimi</th>
                 <th>Viti</th>
+                <th>Krijuar</th>
+                <th>Perditesuar</th>
             </thead>";
 
 	function __construct($row = []) {
 
-		$this->id = $row["id"];
+		parent::setId($row["id"]);
+		parent::setCreatedAt($row["created_at"]);
+		parent::setLastUpdated($row["last_updated"]);
+
 		$this->name = $row["name"];
 		$this->description = $row["description"];
 		$this->rating = $row["rating"];
@@ -35,7 +41,7 @@ class Film {
 		$html .= "<tr>";
 
 		$html .= "<td><a href=\"film_details.php?id=";
-		$html .= $this->id;
+		$html .= $this->getId();
 		$html .= "\"</a>";
 		$html .= $this->name;
 		$html .= "</td>";
@@ -47,13 +53,21 @@ class Film {
 
 
 		$html .= "<td>";
-		$html .= $this->rating;
+		$html .= $this->getRatingPercentage();
 		$html .= "</td>";
 
 
 		$html .= "<td>";
-		$html .= $this->year;
-		$html .= "</td>";		
+		$html .= $this->getAge();
+		$html .= "</td>";
+
+		$html .= "<td>";
+		$html .= $this->getCreatedAt();
+		$html .= "</td>";
+
+		$html .= "<td>";
+		$html .= $this->getLastUpdated();
+		$html .= "</td>";
 
 		$html .= "</tr>";
 
@@ -82,28 +96,20 @@ class Film {
 		$html .= "<tr>";
 		$html .= "<td>Rating</td>";
 		$html .= "<td>";
-		$html .= $this->rating;
+		$html .= $this->getRatingPercentage();
 		$html .= "</td>";
 		$html .= "</tr>";
 
 		$html .= "<tr>";
 		$html .= "<td>Year</td>";
 		$html .= "<td>";
-		$html .= $this->year;
+		$html .= $this->getAge();
 		$html .= "</td>";
 		$html .= "</tr>";		
 
 		$html .= "</table>";
 
 		return $html;
-	}
-
-	public function getId() {
-		return $this->id;
-	}
-
-	public function setId($id) {
-		$this->id = $id;
 	}
 
 	public function getName() {
@@ -137,5 +143,17 @@ class Film {
 	public function setYear($year) {
 		$this->year = $year;
 	}
+
+	public function getAge() {
+		$currentYear = date("Y");
+		$age = $currentYear - $this->getYear();
+		return "$age year(s) ago";	
+	}
+	
+	public function getRatingPercentage() {
+		$percentage = $this->getRating() / 5 * 100;
+		return "$percentage %";
+	}
+
 }
 

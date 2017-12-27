@@ -5,7 +5,10 @@
     <meta name="author" content="">
 
     <title>Sistemi per menaxhimin e biletave</title>
-
+    <?php 
+    // Set default timezone
+      date_default_timezone_set("Europe/Tirane"); 
+    ?>
     <!-- Bootstrap core CSS -->
     <link href="include/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 

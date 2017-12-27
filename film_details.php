@@ -5,6 +5,7 @@
 
   <body>
     <?php include "include/nav.php"; ?>
+    <?php include "utils/form_drawer.class.php"; ?>
     <?php
 	
 	$selected_film = [];
@@ -22,7 +23,10 @@
           <br/>
           <h2><?php echo $selected_film->getName(); ?></h2>
           
-          <?php echo $selected_film->generateSingleView(); ?>
+          <?php 
+            $signleViewDrawer = new FormDrawer($selected_film);
+            $signleViewDrawer->draw();
+          ?>
 
           <a href='film_edit.php?id=<?php echo $selected_film->getId(); ?>'>Edit</a>
 
