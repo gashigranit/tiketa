@@ -1,3 +1,10 @@
+<?php
+  session_start();
+  if(!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
+    header('LOCATION:login.php'); 
+    die();
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <?php include "include/header.php"; ?>
@@ -7,7 +14,7 @@
     <?php include "include/nav.php"; ?>    
     <?php include "utils/table_drawer.class.php"; ?>
     <?php
-		
+		  
       $films = get_all_films();
 
     ?>

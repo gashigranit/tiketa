@@ -1,3 +1,12 @@
+<?php
+  session_start();
+  if(!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
+    header('LOCATION:login.php'); 
+    die();
+  } else {
+    
+  }
+?>
 <!DOCTYPE html>
 <html>
   <?php include "include/header.php"; ?>
