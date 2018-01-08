@@ -15,7 +15,7 @@ class TableDrawer {
 
 		$html .= "<table class='table'>";
 		$html .= "<thead>";
-		$html .= $header;
+		$html .= $this->header;
 		$html .= "</thead>";
 
 		$html .= "<tbody>";
