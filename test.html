@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous">
+</script>
+
+</head>
+
+<body>
+
+
+<button value="Connect" id="connectButton">Connect</button>
+
+<div>
+	<label name="responseLabel" id="responseLabel"></label>
+</div>
+
+
+</body>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$("#connectButton").click(function() {		
+		$.get("api.php", function(data){
+			var person = JSON.parse(data);
+			$("#responseLabel").html(person.name);
+		});
+	});
+});
+
+
+/*
+function buttonClick() {
+	
+	var xhttp = new XMLHttpRequest();
+	
+	xhttp.onreadystatechange = function() {
+		if(this.readyState == 4 && this.status == 200) {
+			var label = document.getElementById("responseLabel");
+			var person = JSON.parse(this.responseText);
+			label.innerHTML = "Student: " + person.name + " " + person.lastName;			
+		}		
+	};
+	
+	xhttp.open("GET", "api.php", true);
+	xhttp.send();
+}
+*/
+</script>
+
+</html>
