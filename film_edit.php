@@ -23,10 +23,10 @@ if(!isset($_SESSION["login"]) || $_SESSION["login"] !== true) {
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $nameValid = ValidationResult::checkParameter("input_name",
-                '/^[A-Z]\w*$/',
+                '/^[A-Z][\w\s]*$/',
                 'Emri duhet te filloje me shkronje te madhe');
     $descriptionValid = ValidationResult::checkParameter("input_description",
-                '/^[A-Z]\w{10,200}$/',
+                '/^[A-Z][\w\s\+\-\,\.]{10,200}$/',
                 'Pershkrimi duhet te filloje me shkronje te madhe dhe te jete mes 10 dhe 200 karaktere');
     $ratingValid = ValidationResult::checkParameter("input_rating",
                 '/^[1-5]$/',
@@ -65,6 +65,8 @@ if(!isset($_SESSION["login"]) || $_SESSION["login"] !== true) {
       } else {
         $success = update_film(new Film($film));
       }
+    } else { 
+      $selected_film = new Film($film);
     }
 
     
